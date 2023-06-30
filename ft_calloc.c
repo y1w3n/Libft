@@ -11,16 +11,36 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
+
+// void	*ft_calloc(size_t count, size_t size)
+// {
+// 	void	*ptr;
+
+// 	if (count == SIZE_MAX || size == SIZE_MAX)
+// 		return (NULL);
+// 	ptr = malloc(count * size);
+// 	if (!ptr)
+// 		return (NULL);
+// 	ft_bzero(ptr, count * size);
+// 	return (ptr);
+// }
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*ptr;
+	char	*ptr;
+	size_t	i;
 
-	if (count == SIZE_MAX || size == SIZE_MAX)
+	if ((int)count < 0 && (int)size < 0)
+		return (NULL);
+	//if ((count * size) > 4) integer has 4 bytes
+	if ((count * size) > INT_MAX)
 		return (NULL);
 	ptr = malloc(count * size);
 	if (!ptr)
 		return (NULL);
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	i = 0;
+	while (i < (count * size))
+		ptr[i++] = 0;
+	return ((void *)ptr);
 }
